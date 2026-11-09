@@ -1,6 +1,7 @@
 import type { SurfacePincodeMap } from './pincode.js'
 import type { SurfaceInstance } from './instance.js'
 import type { SurfaceSchemaLayoutDefinition } from '../surface-layout-schema.js'
+import type { SurfaceAppearanceDefinition } from '../surface-appearance-schema.js'
 import type { OptionsObject, SomeCompanionInputField } from './input.js'
 
 /**
@@ -74,6 +75,20 @@ export interface SurfaceRegisterProps {
 	 */
 	surfaceLayout: SurfaceSchemaLayoutDefinition
 	/**
+	 * How to draw the face of this surface, keyed by the same control ids as `surfaceLayout` and
+	 * describing every one of them. Set to null if this surface has no face to describe, in which
+	 * case it is drawn from geometry derived out of its layout instead.
+	 */
+	surfaceAppearance: SurfaceAppearanceDefinition | null
+	/**
+	 * Which of the models this plugin declares from `getSurfaceModels` this surface is, by that model's id. Lets
+	 * the host tell which model a connected surface is without matching their names, which a plugin is free to
+	 * word differently. Set to null if it is none of them.
+	 * Note: This only identifies the surface as being of that model. The surface's own `surfaceLayout` and
+	 * `surfaceAppearance` are always what it is drawn from, never the model's.
+	 */
+	modelId: string | null
+	/**
 	 * Describes any custom input or output variables for the surface
 	 * These are typically used for reporting values such as a tbar or battery level.
 	 * Or for providing non-button values such as leds next to a tbar
@@ -133,6 +148,12 @@ export interface SurfaceDrawProps {
 	 * This is typically only used for surfaces which have buttons with text-only displays
 	 */
 	text?: string
+
+	/**
+	 * Whether the control is currently pressed.
+	 * This can be used by surfaces to show pressed feedback, such as for surfaces with text-only displays
+	 */
+	pressed: boolean
 
 	/**
 	 * If the control's style preset requested `leds`, this is the colour for each LED segment,

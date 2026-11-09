@@ -1,6 +1,6 @@
 {
 	"name": "@companion-surface/base",
-	"version": "1.4.0",
+	"version": "1.4.1",
 	"type": "module",
 	"license": "MIT",
 	"repository": "https://github.com/bitfocus/companion-surface-api",
@@ -32,6 +32,6 @@
 		"typedoc": "^0.28.20"
 	},
 	"dependencies": {
-		"zod": "^4.4.3"
+		"zod": "^4.6.6"
 	}
 }
